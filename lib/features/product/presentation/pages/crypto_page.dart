@@ -84,14 +84,13 @@ class _CryptoPageState extends State<CryptoPage> {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                   onPressed: () {
                     //fungsi berat
-                    print('Mulai menghitung...');
+                    // ignore: unused_local_variable
                     int hasil = 0;
 
                     //looping 4 milyar kali
                     for (int i = 0; i < 4000000000; i++) {
                       hasil += i;
                     }
-                    print("Selesai! Hasilnya: $hasil");
                   },
                   child: const Text(
                     'Siksa Main Thread (Layar akan Macet!)',
@@ -106,11 +105,8 @@ class _CryptoPageState extends State<CryptoPage> {
                     backgroundColor: Colors.green,
                   ),
                   onPressed: () async {
-                    print("Mulai menghitung di Isolate...");
-                    // MENGGUNAKAN PEKERJA GUDANG (ISOLATE)!
-                    // compute(NamaFungsinya, Parameternya)
+                    // ignore: unused_local_variable
                     int hasil = await compute(tugasMenghitungBerat, 4000000000);
-                    print("Selesai dari Isolate! Hasilnya: $hasil");
                   },
                   child: const Text(
                     'Gunakan Isolate (Layar Tetap Lancar)',

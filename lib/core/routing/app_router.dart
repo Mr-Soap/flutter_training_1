@@ -8,6 +8,8 @@ import '../../features/product/presentation/pages/profile_page.dart';
 import '../../features/product/presentation/cubit/product_cubit.dart';
 import '../../features/todo/presentation/pages/todo_page.dart';
 import '../../features/native/presentation/pages/native_page.dart';
+import '../../features/sync/presentation/pages/background_sync_pages.dart';
+import '../../features/animation/presentation/pages/animation_page.dart';
 import '../di/injection.dart';
 
 class AppRouter {
@@ -37,9 +39,16 @@ class AppRouter {
 
       GoRoute(path: '/todo', builder: (context, state) => const TodoPage()),
 
+      GoRoute(path: '/native', builder: (context, state) => const NativePage()),
+
       GoRoute(
-        path: '/native',
-        builder: (context, state) => const NativePage(),
+        path: '/sync',
+        builder: (context, state) => const BackgroundSyncPages(),
+      ),
+
+      GoRoute(
+        path: '/animation',
+        builder: (context, state) => const AnimationPage(),
       ),
 
       GoRoute(

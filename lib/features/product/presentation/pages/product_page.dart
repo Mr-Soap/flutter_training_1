@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/product_cubit.dart';
 import '../cubit/product_state.dart';
+import '../../../../core/config/env_config.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -17,7 +18,10 @@ class ProductPage extends StatelessWidget {
             context.push('/profile');
           },
         ),
-        title: const Text('Katalog BLoC UTD'),
+        title: Text('Katalog UTD [${EnvConfig.environment}]'),
+        backgroundColor: EnvConfig.isProduction
+            ? Colors.green.shade800
+            : Colors.blueGrey,
         actions: [
           IconButton(
             icon: const Icon(Icons.checklist),
@@ -27,11 +31,18 @@ class ProductPage extends StatelessWidget {
           ),
 
           IconButton(
-            icon: const Icon(Icons.battery_5_bar_rounded),
+            icon: const Icon(Icons.animation),
             onPressed: () {
-              context.push('/native');
+              context.push('/animation');
             },
-          )
+          ),
+
+          IconButton(
+            icon: const Icon(Icons.cloud),
+            onPressed: () {
+              context.push('/sync');
+            },
+          ),
         ],
       ),
 
@@ -71,12 +82,13 @@ class ProductPage extends StatelessWidget {
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.error),
                     ),
                     title: Text(
                       item.name,
                       maxLines: 1,
-                      overflow: TextOverflow.ellipsis
+                      overflow: TextOverflow.ellipsis,
                     ),
                     subtitle: Text('ID: ${item.id}'),
                     trailing: const Icon(Icons.arrow_forward_ios),
