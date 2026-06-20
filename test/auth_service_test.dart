@@ -46,7 +46,7 @@ void main() {
       final result = await authService.loginUser('user@utd.id', 'pass123');
 
       // assert
-      expect(result, "Terjadi Kesalahan Jaringan");
+      expect(result, "Terjadi Kesalahan Jaringan!");
     });
   });
 }
