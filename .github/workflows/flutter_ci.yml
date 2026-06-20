@@ -2,55 +2,49 @@ name: UTD Advanced CI/CD Pipeline
 
 on:
   push:
-  branches: [ "main", "master" ]
+    branches:
+      - main
+      - master
+
   pull_request:
-  branches: [ "main", "master" ]
+    branches:
+      - main
+      - master
 
 jobs:
   build_and_test:
+
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Mengunduh kode dari repository Anda ke server
-      - name: 📥 Download / Checkout Code
+      - name: Download / Checkout Code
         uses: actions/checkout@v3
 
-      # 2. Menginstal Java (dibutuhkan oleh Android)
-      - name: ☕ Setup Java JDK
+      - name: Setup Java JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
+          distribution: zulu
           java-version: '17'
 
-      # 3. Menginstal Flutter SDK ke dalam server
-      - name: 🦋 Setup Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: stable
 
-      # 4. Mengunduh semua package (dio, bloc, isar, dll)
-      - name: 📦 Install Dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
-      # 5. Membangun ulang file gaib Isar (build_runner)
-      - name: ⚙️ Run Build Runner
+      - name: Run Build Runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
-      # 6. Menjalankan Robot Penguji (Unit Test)
-      # Jika langkah ini meledak/gagal, proses ke bawahnya akan dihentikan otomatis!
-      - name: 🧪 Run Automated Tests
-        run: flutter tes
+      - name: Run Automated Tests
+        run: flutter test
 
-      # 7. Jika Test lulus, buat file APK!
-      - name: 🛠️ Build APK Release
+      - name: Build APK Release
         run: flutter build apk --release
 
-      # 8. Upload file APK ke halaman GitHub agar bisa kita download!
-      - name: 🚀 Upload APK Artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: UTD-Advanced-Release-APK
           path: build/app/outputs/flutter-apk/app-release.apk
-
-
-
